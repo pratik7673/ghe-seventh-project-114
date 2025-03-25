@@ -23,6 +23,12 @@ jobs:
       - name: Test code
         id: run-tests
         run: npm run test
+      - name: cache dependency
+        uses: actions/cache@v3
+        with:
+         path: "./*"
+         key: "${{ github.sha }}- ${{ github.run_id }}"
+         
       
         
         
