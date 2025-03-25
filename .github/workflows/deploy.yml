@@ -19,14 +19,8 @@ jobs:
       - name: Get code
         uses: actions/checkout@v3
 
-      - name: Cache npm dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: ${{ github.sha }}
-
-      - name: Install dependencies
-        run: npm ci
+      - name: load and cache depedency
+        uses: ./.github/actions/cache_deps
 
       - name: Lint code
         run: npm run lint
@@ -38,7 +32,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: test-results
-          path: test-results/test-report.xml
+          path: "./*"
         
   build:
     needs: test
