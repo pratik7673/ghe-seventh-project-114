@@ -18,21 +18,27 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
-      - name: load and cache depedency
+
+      - name: Load and cache dependencies
         uses: ./.github/actions/cache_deps
-      - name: Test code
+
+      - name: Run tests
         id: run-tests
         run: npm run test
-      - name: cache dependency
+
+      - name: Cache dependencies
         uses: actions/cache@v3
         with:
-         path: "./*"
-         key: "${{ github.sha }}- ${{ github.run_id }}"
-      - name: upload artifact
+          path: node_modules  # Only cache dependencies
+          key: node-modules-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            node-modules-
+
+      - name: Upload test report
         uses: actions/upload-artifact@v3
         with:
           name: test-report
-          path: "./*"
+          path: test.json  # Adjust this based on your actual test report location
         
         
   build:
