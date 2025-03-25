@@ -28,8 +28,11 @@ jobs:
         with:
          path: "./*"
          key: "${{ github.sha }}- ${{ github.run_id }}"
-         
-      
+      - name: upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-report
+          path: "./*"
         
         
   build:
