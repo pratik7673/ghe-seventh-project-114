@@ -73,13 +73,13 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: test-results
-          path: ./test-results/
+          path: ./*.json
       - name: Output Contents
         run: ls -l ./test-results/
       - name: Deploy Site
         run: echo "Deploying..."
   information:
-    needs: lint
+    
     runs-on: ubuntu-latest
     steps:
       - name: check custome js
