@@ -3,47 +3,48 @@ on:
   push:
     branches:
       - main
+
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
       - name: Get code
         uses: actions/checkout@v3
-      - name: load and cache depedency
+      - name: Load and Cache Dependencies
         id: cache-deps
         uses: ./.github/actions/cache_deps
         with:
           caching: 'false'
       - name: Output Information
-        run: echo "cache used ? ${{ steps.cache-deps.outputs.used-cache}}"
-      - name: Lint code
+        run: echo "Cache used? ${{ steps.cache-deps.outputs.used-cache }}"
+      - name: Lint Code
         run: npm run lint
 
   test:
-   runs-on: ubuntu-latest
-   steps:
-     - name: Get code
-       uses: actions/checkout@v3
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
 
-     - name: Load and Cache Dependencies
-       id: cache-deps
-       uses: ./.github/actions/cache_deps
+      - name: Load and Cache Dependencies
+        id: cache-deps
+        uses: ./.github/actions/cache_deps
 
-     - name: Debug Outputs
-       run: echo "cache used ? ${{ steps.cache-deps.outputs.used-cache}}"
+      - name: Debug Outputs
+        run: echo "Cache used? ${{ steps.cache-deps.outputs.used-cache }}"
 
-     - name: Lint Code
-       run: npm run lint
+      - name: Lint Code
+        run: npm run lint
 
-     - name: Run Tests and Save Results
-       run: npm run test
+      - name: Run Tests and Save Results
+        run: npm run test
 
-     - name: Upload Test Results
-       uses: actions/upload-artifact@v4
-       with:
-         name: test-results
-         path: "./*"
-        
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: ./test-results/
+
   build:
     needs: test
     runs-on: ubuntu-latest
@@ -56,10 +57,10 @@ jobs:
         with:
           path: node_modules
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
-      - name: Install dependencies
+      - name: Install Dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
-      - name: Build website
+      - name: Build Website
         run: npm run build
 
   deploy:
@@ -68,12 +69,12 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
-      - name: Download test results
+      - name: Download Test Results
         uses: actions/download-artifact@v4
         with:
           name: test-results
-          path: "./*"
-      - name: Output contents
-        run: ls
-      - name: Deploy site
+          path: ./test-results/
+      - name: Output Contents
+        run: ls -l ./test-results/
+      - name: Deploy Site
         run: echo "Deploying..."
