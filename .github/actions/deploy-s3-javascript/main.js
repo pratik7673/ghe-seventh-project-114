@@ -15,6 +15,9 @@ async function run() {
         await exec.exec(`aws s3 sync ${distfolder} ${s3Uri} --region ${region}`);
         
         core.notice(`Files successfully uploaded to ${s3Uri}`);
+        const WebsiteURL = `http://${bucket}.s3-website-${region}.amazonaws.com`;
+
+        core.setOutput ('URL' , WebsiteURL)
         
     } catch (error) {
         core.setFailed(`Action failed: ${error.message}`);

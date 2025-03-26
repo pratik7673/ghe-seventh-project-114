@@ -13,7 +13,9 @@ inputs:
   dist-folder:
     description: 'folder deployable'
     required: true
-
+outputs:
+ URL:
+  description: 'URL for description' 
 runs:
   using: 'node20'
   main: 'main.js'
