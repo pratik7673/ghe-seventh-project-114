@@ -3,7 +3,7 @@ const github= require('@actions/github');
 const exec=require('@actions/exec');
 
 function run() {
-    core.notice('Hello from my custome js actions!')
+    core.notice('Hello from my custome js actions!');
 }
 
 run();
