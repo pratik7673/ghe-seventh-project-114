@@ -15,7 +15,7 @@ async function run() {
         await exec.exec(`aws s3 sync ${distfolder} ${s3Uri} --region ${region}`);
         
         core.notice(`Files successfully uploaded to ${s3Uri}`);
-        core.notice(${AWS_ACCESS_KEY_ID});
+        
     } catch (error) {
         core.setFailed(`Action failed: ${error.message}`);
     }
