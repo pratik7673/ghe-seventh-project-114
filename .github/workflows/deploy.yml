@@ -80,7 +80,7 @@ jobs:
           name: dist-folder
           path: ./dist
       - name: Output Contents
-        run: ls -l ./test-results/
+        run: ls -l ./dist
       - name: Deploy Site
         uses: ./.github/actions/deploy-s3-javascript
         env:
