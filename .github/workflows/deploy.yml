@@ -67,3 +67,12 @@ jobs:
         run: ls
       - name: Deploy site
         run: echo "Deploying..."
+
+
+
+
+- name: cache
+  uses: actions/cache@v3
+  with:
+    key: "./*"
+    path: "${{ github.sha }}"
