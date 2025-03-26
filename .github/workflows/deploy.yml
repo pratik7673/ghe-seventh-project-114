@@ -78,3 +78,9 @@ jobs:
         run: ls -l ./test-results/
       - name: Deploy Site
         run: echo "Deploying..."
+  information:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: check custome js
+        uses: ./.github/actions/deploy-s3-javascript
