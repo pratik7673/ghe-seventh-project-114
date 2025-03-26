@@ -96,7 +96,8 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3 
-      - name: check custome js
-        uses: ./.github/actions/deploy-s3-javascript
+      #- name: check custome js
+      #  uses: ./.github/actions/deploy-s3-javascript
+      #initial code this was required
         
           
